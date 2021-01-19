@@ -16,7 +16,8 @@ namespace JDNianBot
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            // 启动窗体
+            Application.Run(new FrmMain());
         }
     }
 }
