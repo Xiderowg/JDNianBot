@@ -46,7 +46,7 @@ namespace JDNianBot
         /// </summary>
         private async void LoadQRCode()
         {
-            string timeStamp = Utils.GetTimeStamp();
+            string timeStamp = Utils.GetTimeStampLong();
             string qrUrl = "https://qr.m.jd.com/show?appid=133&size=343&t=" + timeStamp;
             CookieContainer = new CookieContainer();
             HttpClientHandler handler = new HttpClientHandler
@@ -90,6 +90,14 @@ namespace JDNianBot
                 client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36");
                 client.DefaultRequestHeaders.Referrer = new Uri("https://passport.jd.com/");
                 var response = client.GetAsync(getAPI).Result;
+                // 清除没啥用的Cookies
+                foreach (Cookie cc in CookieContainer.GetCookies(new Uri("https://www.jd.com")))
+                {
+                    if (cc.Name != "pt_pin" || cc.Name != "pt_key")
+                    {
+                        cc.Expired = true;
+                    }
+                }
             }
         }
 
@@ -103,7 +111,7 @@ namespace JDNianBot
             if (string.IsNullOrWhiteSpace(Token)) return;
             Random rand = new Random();
             int randInt = (int)(rand.NextDouble() * 10000000);
-            string checkAPI = string.Format("https://qr.m.jd.com/check?callback=jQuery{0}&appid=133&token={1}&_={2}", randInt, Token, Utils.GetTimeStamp());
+            string checkAPI = string.Format("https://qr.m.jd.com/check?callback=jQuery{0}&appid=133&token={1}&_={2}", randInt, Token, Utils.GetTimeStampLong());
             HttpClientHandler handler = new HttpClientHandler
             {
                 CookieContainer = CookieContainer,

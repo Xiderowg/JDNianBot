@@ -50,11 +50,13 @@
             // 
             // Txt_Output
             // 
+            this.Txt_Output.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Txt_Output.Location = new System.Drawing.Point(256, 12);
             this.Txt_Output.Multiline = true;
             this.Txt_Output.Name = "Txt_Output";
             this.Txt_Output.Size = new System.Drawing.Size(463, 254);
             this.Txt_Output.TabIndex = 0;
+            this.Txt_Output.Text = "本程序完全免费，仅供测试与交流使用，请勿用于商业用途及非法用途！By:EdLinus";
             // 
             // groupBox1
             // 
