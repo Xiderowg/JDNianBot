@@ -46,6 +46,7 @@
             this.pictureBox1.Location = new System.Drawing.Point(12, 12);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(300, 300);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
@@ -55,14 +56,14 @@
             this.label1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label1.Location = new System.Drawing.Point(12, 327);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(119, 15);
+            this.label1.Size = new System.Drawing.Size(55, 15);
             this.label1.TabIndex = 1;
-            this.label1.Text = "当前扫码状态：";
+            this.label1.Text = "状态：";
             // 
             // Lbl_QRStatus
             // 
             this.Lbl_QRStatus.AutoSize = true;
-            this.Lbl_QRStatus.Location = new System.Drawing.Point(145, 327);
+            this.Lbl_QRStatus.Location = new System.Drawing.Point(73, 327);
             this.Lbl_QRStatus.Name = "Lbl_QRStatus";
             this.Lbl_QRStatus.Size = new System.Drawing.Size(121, 15);
             this.Lbl_QRStatus.TabIndex = 2;
@@ -92,6 +93,7 @@
             this.Btn_Confirm.TabIndex = 5;
             this.Btn_Confirm.Text = "确认";
             this.Btn_Confirm.UseVisualStyleBackColor = true;
+            this.Btn_Confirm.Click += new System.EventHandler(this.Btn_Confirm_Click);
             // 
             // groupBox1
             // 
@@ -124,7 +126,6 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "请在App上扫码登陆";
-            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmLogin_FormClosing);
             this.Load += new System.EventHandler(this.FrmLogin_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

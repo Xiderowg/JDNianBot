@@ -13,7 +13,8 @@ namespace JDNianBot
         BeMember = 2,
         ShopSignin = 3,
         ShopLottery = 4,
-        Unknown = 5
+        AddCart = 5,
+        Unknown = 6
     }
 
     public class JDTask

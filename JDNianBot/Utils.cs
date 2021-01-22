@@ -1,12 +1,16 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace JDNianBot
 {
@@ -122,6 +126,65 @@ namespace JDNianBot
                 s += str.Substring(r.Next(0, str.Length - 1), 1);
             }
             return s;
+        }
+
+        /// <summary>
+        /// 生成二维码
+        /// </summary>
+        /// <param name="msg">信息</param>
+        /// <param name="pixel">像素点大小</param>
+        /// <returns>位图</returns>
+        public static Bitmap GenQRCode(string msg, int pixel)
+        {
+            QRCoder.QRCodeGenerator code_generator = new QRCoder.QRCodeGenerator();
+            QRCoder.QRCodeData code_data = code_generator.CreateQrCode(msg, QRCoder.QRCodeGenerator.ECCLevel.M/* 这里设置容错率的一个级别 */);
+            QRCoder.QRCode code = new QRCoder.QRCode(code_data);
+            Bitmap bmp = code.GetGraphic(pixel, Color.Black, Color.White, drawQuietZones: true);
+            return bmp;
+        }
+
+        /// <summary>
+        /// 获取所有Cookies
+        /// </summary>
+        /// <param name="cookieJar"></param>
+        /// <returns></returns>
+        public static CookieCollection GetAllCookies(CookieContainer cookieJar)
+        {
+            CookieCollection cookieCollection = new CookieCollection();
+
+            Hashtable table = (Hashtable)cookieJar.GetType().InvokeMember("m_domainTable",
+                                                                            BindingFlags.NonPublic |
+                                                                            BindingFlags.GetField |
+                                                                            BindingFlags.Instance,
+                                                                            null,
+                                                                            cookieJar,
+                                                                            new object[] { });
+
+            foreach (var tableKey in table.Keys)
+            {
+                String str_tableKey = (string)tableKey;
+
+                if (str_tableKey[0] == '.')
+                {
+                    str_tableKey = str_tableKey.Substring(1);
+                }
+
+                SortedList list = (SortedList)table[tableKey].GetType().InvokeMember("m_list",
+                                                                            BindingFlags.NonPublic |
+                                                                            BindingFlags.GetField |
+                                                                            BindingFlags.Instance,
+                                                                            null,
+                                                                            table[tableKey],
+                                                                            new object[] { });
+
+                foreach (var listKey in list.Keys)
+                {
+                    String url = "https://" + str_tableKey + (string)listKey;
+                    cookieCollection.Add(cookieJar.GetCookies(new Uri(url)));
+                }
+            }
+
+            return cookieCollection;
         }
     }
 }
