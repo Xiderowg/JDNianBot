@@ -14,9 +14,13 @@ namespace JDNianBot
         ShopSignin = 3,
         ShopLottery = 4,
         AddCart = 5,
-        Unknown = 6
+        SpecialGift = 6,
+        Unknown = 7
     }
 
+    /// <summary>
+    /// 京东炸年兽任务
+    /// </summary>
     public class JDTask
     {
         /// <summary>
@@ -44,5 +48,19 @@ namespace JDNianBot
         /// 店铺ID
         /// </summary>
         public string ShopSign { get; set; }
+    }
+
+    /// <summary>
+    /// 神仙书院任务
+    /// </summary>
+    public class SXSYTask
+    {
+        public string Name { get; set; }
+
+        public string[] ItemToken { get; set; }
+
+        public string[] TaskToken { get; set; }
+
+        public int WaitDuration { get; set; }
     }
 }
